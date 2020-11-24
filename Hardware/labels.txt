@@ -1,0 +1,13 @@
+"[GND]" -t .005
+"[3.3V]" -t .005 
+"(SDA]" -t .005 
+"(SCL]" -t .005
+"[EN<" -t .005
+"[GPIO1>" -t .005
+"[GPIO0>" -t .005
+"[!INT!>" -t .005
+"Time-Of-Flight TMF8801" -s 0.04 -t .005 -a cc
+"[PWR]" -s 0.03 -t .005 -a cc
+"[!INT! PULLUP]" -s 0.03 -t .005 -a cc
+"[LED EN]" -s 0.03 -t .005 -a cc
+"[I2C PULLUP]" -s 0.03 -t .005 -a cc

@@ -1305,174 +1305,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
-<library name="SparkFun-Aesthetics">
-<description>&lt;h3&gt;SparkFun Aesthetics&lt;/h3&gt;
-This library contiains non-functional items such as logos, build/ordering notes, frame blocks, etc. 
-&lt;br&gt;
-&lt;br&gt;
-We've spent an enormous amount of time creating and checking these footprints and parts, but it is &lt;b&gt; the end user's responsibility&lt;/b&gt; to ensure correctness and suitablity for a given componet or application. 
-&lt;br&gt;
-&lt;br&gt;If you enjoy using this library, please buy one of our products at &lt;a href=" www.sparkfun.com"&gt;SparkFun.com&lt;/a&gt;.
-&lt;br&gt;
-&lt;br&gt;
-&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
-&lt;br&gt;
-&lt;br&gt;
-You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
-<packages>
-<package name="CREATIVE_COMMONS">
-<description>&lt;h3&gt;Creative Commons License Template&lt;/h3&gt;
-&lt;p&gt;CC BY-SA 4.0 License with &lt;a href="https://creativecommons.org/licenses/by-sa/4.0/"&gt;link to license&lt;/a&gt; and placeholder for designer name.&lt;/p&gt;
-&lt;p&gt;Devices using:
-&lt;ul&gt;&lt;li&gt;FRAME_LEDGER&lt;/li&gt;
-&lt;li&gt;FRAME_LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
-<text x="-20.32" y="5.08" size="1.778" layer="51" font="vector">Released under the Creative Commons Attribution Share-Alike 4.0 License</text>
-<text x="0" y="2.54" size="1.778" layer="51" font="vector"> https://creativecommons.org/licenses/by-sa/4.0/</text>
-<text x="11.43" y="0" size="1.778" layer="51" font="vector">Designed by:</text>
-</package>
-<package name="DUMMY">
-<description>&lt;h3&gt;Dummy Footprint&lt;/h3&gt;
-&lt;p&gt;NOTHING HERE!!! For when you want a symbol with no package as an option against symbols with a package.&lt;/p&gt;
-
-&lt;p&gt;Devices using:
-&lt;ul&gt;&lt;li&gt;BADGERHACK_LOGO&lt;/li&gt;
-&lt;li&gt;FRAME-LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
-</package>
-<package name="FIDUCIAL-1X2">
-<description>&lt;h3&gt;Fiducial - Circle, 1mm&lt;/h3&gt;
-&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;
-&lt;p&gt;Devices using:
-&lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
-<smd name="1" x="0" y="0" dx="1" dy="1" layer="1" roundness="100" cream="no"/>
-</package>
-<package name="FIDUCIAL-MICRO">
-<description>&lt;h3&gt;Fiducial - Circle, 0.25in&lt;/h3&gt;
-&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;
-&lt;p&gt;Devices using:
-&lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
-<smd name="1" x="0" y="0" dx="0.635" dy="0.635" layer="1" roundness="100" cream="no"/>
-</package>
-<package name="FIDUCIAL-0.2MM">
-<description>&lt;h3&gt;Fiducial - Circle, 0.2mm&lt;/h3&gt;
-&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;
-&lt;p&gt;Devices using:
-&lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
-<smd name="1" x="0" y="0" dx="0.2" dy="0.2" layer="1" roundness="100" stop="no" cream="no"/>
-<circle x="0" y="0" radius="0.06" width="0.1524" layer="29"/>
-</package>
-</packages>
-<symbols>
-<symbol name="FRAME-LETTER">
-<description>&lt;h3&gt;Schematic Frame - Letter&lt;/h3&gt;
-&lt;p&gt;Standard 8.5x11 US Ledger frame&lt;/p&gt;
-&lt;p&gt;Devices using&lt;ul&gt;&lt;li&gt;FRAME-LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
-<wire x1="0" y1="185.42" x2="248.92" y2="185.42" width="0.4064" layer="94"/>
-<wire x1="248.92" y1="185.42" x2="248.92" y2="0" width="0.4064" layer="94"/>
-<wire x1="0" y1="185.42" x2="0" y2="0" width="0.4064" layer="94"/>
-<wire x1="0" y1="0" x2="248.92" y2="0" width="0.4064" layer="94"/>
-</symbol>
-<symbol name="DOCFIELD">
-<description>&lt;h3&gt;Schematic Documentation Field&lt;/h3&gt;
-&lt;p&gt;Autofilling schematic symbol-layer info including board name, designer, revision, and save date.&lt;/p&gt;
-&lt;p&gt;Devices using:
-&lt;ul&gt;&lt;li&gt;FRAME-LEDGER&lt;/li&gt;
-&lt;li&gt;FRAME-LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
-<wire x1="0" y1="0" x2="71.12" y2="0" width="0.254" layer="94"/>
-<wire x1="101.6" y1="15.24" x2="87.63" y2="15.24" width="0.254" layer="94"/>
-<wire x1="0" y1="0" x2="0" y2="5.08" width="0.254" layer="94"/>
-<wire x1="0" y1="5.08" x2="71.12" y2="5.08" width="0.254" layer="94"/>
-<wire x1="0" y1="5.08" x2="0" y2="15.24" width="0.254" layer="94"/>
-<wire x1="101.6" y1="15.24" x2="101.6" y2="5.08" width="0.254" layer="94"/>
-<wire x1="71.12" y1="5.08" x2="71.12" y2="0" width="0.254" layer="94"/>
-<wire x1="71.12" y1="5.08" x2="87.63" y2="5.08" width="0.254" layer="94"/>
-<wire x1="71.12" y1="0" x2="101.6" y2="0" width="0.254" layer="94"/>
-<wire x1="87.63" y1="15.24" x2="87.63" y2="5.08" width="0.254" layer="94"/>
-<wire x1="87.63" y1="15.24" x2="0" y2="15.24" width="0.254" layer="94"/>
-<wire x1="87.63" y1="5.08" x2="101.6" y2="5.08" width="0.254" layer="94"/>
-<wire x1="101.6" y1="5.08" x2="101.6" y2="0" width="0.254" layer="94"/>
-<wire x1="0" y1="15.24" x2="0" y2="22.86" width="0.254" layer="94"/>
-<wire x1="101.6" y1="35.56" x2="0" y2="35.56" width="0.254" layer="94"/>
-<wire x1="101.6" y1="35.56" x2="101.6" y2="22.86" width="0.254" layer="94"/>
-<wire x1="0" y1="22.86" x2="101.6" y2="22.86" width="0.254" layer="94"/>
-<wire x1="0" y1="22.86" x2="0" y2="35.56" width="0.254" layer="94"/>
-<wire x1="101.6" y1="22.86" x2="101.6" y2="15.24" width="0.254" layer="94"/>
-<text x="1.27" y="1.27" size="2.54" layer="94" font="vector">Date:</text>
-<text x="12.7" y="1.27" size="2.54" layer="94" font="vector">&gt;LAST_DATE_TIME</text>
-<text x="72.39" y="1.27" size="2.54" layer="94" font="vector">Sheet:</text>
-<text x="86.36" y="1.27" size="2.54" layer="94" font="vector">&gt;SHEET</text>
-<text x="88.9" y="11.43" size="2.54" layer="94" font="vector">REV:</text>
-<text x="1.524" y="17.78" size="2.54" layer="94" font="vector">TITLE:</text>
-<text x="15.494" y="17.78" size="2.7432" layer="94" font="vector">&gt;DRAWING_NAME</text>
-<text x="2.54" y="31.75" size="1.9304" layer="94">Released under the Creative Commons</text>
-<text x="2.54" y="27.94" size="1.9304" layer="94">Attribution Share-Alike 4.0 License</text>
-<text x="2.54" y="24.13" size="1.9304" layer="94"> https://creativecommons.org/licenses/by-sa/4.0/</text>
-<text x="1.27" y="11.43" size="2.54" layer="94">Design by:</text>
-<text x="23.114" y="11.176" size="2.7432" layer="94" font="vector">&gt;DESIGNER</text>
-<text x="88.9" y="6.604" size="2.7432" layer="94" font="vector">&gt;REV</text>
-</symbol>
-<symbol name="FIDUCIAL">
-<description>&lt;h3&gt;Fiducial&lt;/h3&gt;
-&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;
-&lt;p&gt;Devices using:
-&lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
-<wire x1="-0.762" y1="0.762" x2="0.762" y2="-0.762" width="0.254" layer="94"/>
-<wire x1="0.762" y1="0.762" x2="-0.762" y2="-0.762" width="0.254" layer="94"/>
-<circle x="0" y="0" radius="1.27" width="0.254" layer="94"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="FRAME-LETTER" prefix="FRAME">
-<description>&lt;h3&gt;Schematic Frame - Letter&lt;/h3&gt;
-&lt;p&gt;Standard 8.5x11 US Letter frame&lt;/p&gt;</description>
-<gates>
-<gate name="G$1" symbol="FRAME-LETTER" x="0" y="0"/>
-<gate name="V" symbol="DOCFIELD" x="147.32" y="0" addlevel="must"/>
-</gates>
-<devices>
-<device name="" package="CREATIVE_COMMONS">
-<technologies>
-<technology name="">
-<attribute name="DESIGNER" value="" constant="no"/>
-<attribute name="REV" value="" constant="no"/>
-</technology>
-</technologies>
-</device>
-<device name="NO_PACKAGE" package="DUMMY">
-<technologies>
-<technology name="">
-<attribute name="DESIGNER" value="Nobody" constant="no"/>
-<attribute name="VERSION" value="v01" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="FIDUCIAL" prefix="FD">
-<description>&lt;h3&gt;Fiducial Alignment Points&lt;/h3&gt;
-&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;</description>
-<gates>
-<gate name="G$1" symbol="FIDUCIAL" x="0" y="0"/>
-</gates>
-<devices>
-<device name="1X2" package="FIDUCIAL-1X2">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="UFIDUCIAL" package="FIDUCIAL-MICRO">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="0.2MM" package="FIDUCIAL-0.2MM">
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="SparkFun-Connectors">
 <description>&lt;h3&gt;SparkFun Connectors&lt;/h3&gt;
 This library contains electrically-functional connectors. 
@@ -2949,6 +2781,174 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 </deviceset>
 </devicesets>
 </library>
+<library name="SparkFun-Aesthetics">
+<description>&lt;h3&gt;SparkFun Aesthetics&lt;/h3&gt;
+This library contiains non-functional items such as logos, build/ordering notes, frame blocks, etc. 
+&lt;br&gt;
+&lt;br&gt;
+We've spent an enormous amount of time creating and checking these footprints and parts, but it is &lt;b&gt; the end user's responsibility&lt;/b&gt; to ensure correctness and suitablity for a given componet or application. 
+&lt;br&gt;
+&lt;br&gt;If you enjoy using this library, please buy one of our products at &lt;a href=" www.sparkfun.com"&gt;SparkFun.com&lt;/a&gt;.
+&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
+&lt;br&gt;
+&lt;br&gt;
+You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
+<packages>
+<package name="FIDUCIAL-1X2">
+<description>&lt;h3&gt;Fiducial - Circle, 1mm&lt;/h3&gt;
+&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;
+&lt;p&gt;Devices using:
+&lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+<smd name="1" x="0" y="0" dx="1" dy="1" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="FIDUCIAL-MICRO">
+<description>&lt;h3&gt;Fiducial - Circle, 0.25in&lt;/h3&gt;
+&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;
+&lt;p&gt;Devices using:
+&lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+<smd name="1" x="0" y="0" dx="0.635" dy="0.635" layer="1" roundness="100" cream="no"/>
+</package>
+<package name="FIDUCIAL-0.2MM">
+<description>&lt;h3&gt;Fiducial - Circle, 0.2mm&lt;/h3&gt;
+&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;
+&lt;p&gt;Devices using:
+&lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+<smd name="1" x="0" y="0" dx="0.2" dy="0.2" layer="1" roundness="100" stop="no" cream="no"/>
+<circle x="0" y="0" radius="0.06" width="0.1524" layer="29"/>
+</package>
+<package name="CREATIVE_COMMONS">
+<description>&lt;h3&gt;Creative Commons License Template&lt;/h3&gt;
+&lt;p&gt;CC BY-SA 4.0 License with &lt;a href="https://creativecommons.org/licenses/by-sa/4.0/"&gt;link to license&lt;/a&gt; and placeholder for designer name.&lt;/p&gt;
+&lt;p&gt;Devices using:
+&lt;ul&gt;&lt;li&gt;FRAME_LEDGER&lt;/li&gt;
+&lt;li&gt;FRAME_LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+<text x="-20.32" y="5.08" size="1.778" layer="51" font="vector">Released under the Creative Commons Attribution Share-Alike 4.0 License</text>
+<text x="0" y="2.54" size="1.778" layer="51" font="vector"> https://creativecommons.org/licenses/by-sa/4.0/</text>
+<text x="11.43" y="0" size="1.778" layer="51" font="vector">Designed by:</text>
+</package>
+<package name="DUMMY">
+<description>&lt;h3&gt;Dummy Footprint&lt;/h3&gt;
+&lt;p&gt;NOTHING HERE!!! For when you want a symbol with no package as an option against symbols with a package.&lt;/p&gt;
+
+&lt;p&gt;Devices using:
+&lt;ul&gt;&lt;li&gt;BADGERHACK_LOGO&lt;/li&gt;
+&lt;li&gt;FRAME-LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+</package>
+</packages>
+<symbols>
+<symbol name="FIDUCIAL">
+<description>&lt;h3&gt;Fiducial&lt;/h3&gt;
+&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;
+&lt;p&gt;Devices using:
+&lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+<wire x1="-0.762" y1="0.762" x2="0.762" y2="-0.762" width="0.254" layer="94"/>
+<wire x1="0.762" y1="0.762" x2="-0.762" y2="-0.762" width="0.254" layer="94"/>
+<circle x="0" y="0" radius="1.27" width="0.254" layer="94"/>
+</symbol>
+<symbol name="FRAME-LETTER">
+<description>&lt;h3&gt;Schematic Frame - Letter&lt;/h3&gt;
+&lt;p&gt;Standard 8.5x11 US Ledger frame&lt;/p&gt;
+&lt;p&gt;Devices using&lt;ul&gt;&lt;li&gt;FRAME-LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+<wire x1="0" y1="185.42" x2="248.92" y2="185.42" width="0.4064" layer="94"/>
+<wire x1="248.92" y1="185.42" x2="248.92" y2="0" width="0.4064" layer="94"/>
+<wire x1="0" y1="185.42" x2="0" y2="0" width="0.4064" layer="94"/>
+<wire x1="0" y1="0" x2="248.92" y2="0" width="0.4064" layer="94"/>
+</symbol>
+<symbol name="DOCFIELD">
+<description>&lt;h3&gt;Schematic Documentation Field&lt;/h3&gt;
+&lt;p&gt;Autofilling schematic symbol-layer info including board name, designer, revision, and save date.&lt;/p&gt;
+&lt;p&gt;Devices using:
+&lt;ul&gt;&lt;li&gt;FRAME-LEDGER&lt;/li&gt;
+&lt;li&gt;FRAME-LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+<wire x1="0" y1="0" x2="71.12" y2="0" width="0.254" layer="94"/>
+<wire x1="101.6" y1="15.24" x2="87.63" y2="15.24" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="0" y2="5.08" width="0.254" layer="94"/>
+<wire x1="0" y1="5.08" x2="71.12" y2="5.08" width="0.254" layer="94"/>
+<wire x1="0" y1="5.08" x2="0" y2="15.24" width="0.254" layer="94"/>
+<wire x1="101.6" y1="15.24" x2="101.6" y2="5.08" width="0.254" layer="94"/>
+<wire x1="71.12" y1="5.08" x2="71.12" y2="0" width="0.254" layer="94"/>
+<wire x1="71.12" y1="5.08" x2="87.63" y2="5.08" width="0.254" layer="94"/>
+<wire x1="71.12" y1="0" x2="101.6" y2="0" width="0.254" layer="94"/>
+<wire x1="87.63" y1="15.24" x2="87.63" y2="5.08" width="0.254" layer="94"/>
+<wire x1="87.63" y1="15.24" x2="0" y2="15.24" width="0.254" layer="94"/>
+<wire x1="87.63" y1="5.08" x2="101.6" y2="5.08" width="0.254" layer="94"/>
+<wire x1="101.6" y1="5.08" x2="101.6" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="15.24" x2="0" y2="22.86" width="0.254" layer="94"/>
+<wire x1="101.6" y1="35.56" x2="0" y2="35.56" width="0.254" layer="94"/>
+<wire x1="101.6" y1="35.56" x2="101.6" y2="22.86" width="0.254" layer="94"/>
+<wire x1="0" y1="22.86" x2="101.6" y2="22.86" width="0.254" layer="94"/>
+<wire x1="0" y1="22.86" x2="0" y2="35.56" width="0.254" layer="94"/>
+<wire x1="101.6" y1="22.86" x2="101.6" y2="15.24" width="0.254" layer="94"/>
+<text x="1.27" y="1.27" size="2.54" layer="94" font="vector">Date:</text>
+<text x="12.7" y="1.27" size="2.54" layer="94" font="vector">&gt;LAST_DATE_TIME</text>
+<text x="72.39" y="1.27" size="2.54" layer="94" font="vector">Sheet:</text>
+<text x="86.36" y="1.27" size="2.54" layer="94" font="vector">&gt;SHEET</text>
+<text x="88.9" y="11.43" size="2.54" layer="94" font="vector">REV:</text>
+<text x="1.524" y="17.78" size="2.54" layer="94" font="vector">TITLE:</text>
+<text x="15.494" y="17.78" size="2.7432" layer="94" font="vector">&gt;DRAWING_NAME</text>
+<text x="2.54" y="31.75" size="1.9304" layer="94">Released under the Creative Commons</text>
+<text x="2.54" y="27.94" size="1.9304" layer="94">Attribution Share-Alike 4.0 License</text>
+<text x="2.54" y="24.13" size="1.9304" layer="94"> https://creativecommons.org/licenses/by-sa/4.0/</text>
+<text x="1.27" y="11.43" size="2.54" layer="94">Design by:</text>
+<text x="23.114" y="11.176" size="2.7432" layer="94" font="vector">&gt;DESIGNER</text>
+<text x="88.9" y="6.604" size="2.7432" layer="94" font="vector">&gt;REV</text>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="FIDUCIAL" prefix="FD">
+<description>&lt;h3&gt;Fiducial Alignment Points&lt;/h3&gt;
+&lt;p&gt;Point-of-reference for pick-and-place machines and other optical instruments.&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="FIDUCIAL" x="0" y="0"/>
+</gates>
+<devices>
+<device name="1X2" package="FIDUCIAL-1X2">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="UFIDUCIAL" package="FIDUCIAL-MICRO">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="0.2MM" package="FIDUCIAL-0.2MM">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="FRAME-LETTER" prefix="FRAME">
+<description>&lt;h3&gt;Schematic Frame - Letter&lt;/h3&gt;
+&lt;p&gt;Standard 8.5x11 US Letter frame&lt;/p&gt;</description>
+<gates>
+<gate name="G$1" symbol="FRAME-LETTER" x="0" y="0"/>
+<gate name="V" symbol="DOCFIELD" x="147.32" y="0" addlevel="must"/>
+</gates>
+<devices>
+<device name="" package="CREATIVE_COMMONS">
+<technologies>
+<technology name="">
+<attribute name="DESIGNER" value="" constant="no"/>
+<attribute name="REV" value="" constant="no"/>
+</technology>
+</technologies>
+</device>
+<device name="NO_PACKAGE" package="DUMMY">
+<technologies>
+<technology name="">
+<attribute name="DESIGNER" value="Nobody" constant="no"/>
+<attribute name="VERSION" value="v01" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -2976,13 +2976,6 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 <part name="JP3" library="SparkFun-Jumpers" deviceset="JUMPER-SMT_2_NC_TRACE" device="_SILK" package3d_urn="urn:adsk.eagle:package:39281/1"/>
 <part name="SUPPLY7" library="SparkFun-PowerSymbols" deviceset="3.3V" device=""/>
 <part name="D1" library="SparkFun-LED" deviceset="LED-RED" device="0603" value="RED"/>
-<part name="FRAME1" library="SparkFun-Aesthetics" deviceset="FRAME-LETTER" device="NO_PACKAGE">
-<attribute name="DESIGNER" value="Ricardo R"/>
-</part>
-<part name="FD1" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="1X2"/>
-<part name="FD2" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="1X2"/>
-<part name="FD3" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="1X2"/>
-<part name="FD4" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="1X2"/>
 <part name="J3" library="SparkFun-Connectors" deviceset="CONN_04" device="1X04_NO_SILK"/>
 <part name="J4" library="SparkFun-Connectors" deviceset="CONN_04" device="1X04_NO_SILK"/>
 <part name="J1" library="SparkFun-Connectors" deviceset="QWIIC_CONNECTOR" device="JS-1MM" value="QWIIC_RIGHT_ANGLE"/>
@@ -2998,10 +2991,17 @@ Commonly used for small ceramic capacitors. Like our 0.1uF (http://www.sparkfun.
 <part name="GND6" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="GND7" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="GND8" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
-<part name="R4" library="SparkFun-Resistors" deviceset="10KOHM" device="-0603-1/10W-1%" value="10k"/>
 <part name="JP2" library="SparkFun-Jumpers" deviceset="JUMPER-SMT_2_NC_TRACE" device="_SILK" package3d_urn="urn:adsk.eagle:package:39281/1"/>
 <part name="SUPPLY11" library="SparkFun-PowerSymbols" deviceset="3.3V" device=""/>
 <part name="JP1" library="SparkFun-Jumpers" deviceset="JUMPER-SMT_3_2-NC_TRACE" device="_SILK" package3d_urn="urn:adsk.eagle:package:39289/1"/>
+<part name="R4" library="SparkFun-Resistors" deviceset="10KOHM" device="-0603-1/10W-1%" value="10k"/>
+<part name="FD1" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="1X2"/>
+<part name="FD2" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="1X2"/>
+<part name="FD3" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="1X2"/>
+<part name="FD4" library="SparkFun-Aesthetics" deviceset="FIDUCIAL" device="1X2"/>
+<part name="FRAME1" library="SparkFun-Aesthetics" deviceset="FRAME-LETTER" device="NO_PACKAGE">
+<attribute name="DESIGNER" value="Ricardo R"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -3076,19 +3076,6 @@ PWR LED</text>
 <attribute name="NAME" x="178.308" y="165.989" size="1.778" layer="95" font="vector"/>
 <attribute name="VALUE" x="178.308" y="160.655" size="1.778" layer="96" font="vector" align="top-left"/>
 </instance>
-<instance part="FRAME1" gate="G$1" x="0" y="0" smashed="yes">
-<attribute name="DESIGNER" x="0" y="0" size="1.27" layer="96" display="off"/>
-</instance>
-<instance part="FRAME1" gate="V" x="147.32" y="0" smashed="yes">
-<attribute name="LAST_DATE_TIME" x="160.02" y="1.27" size="2.54" layer="94" font="vector"/>
-<attribute name="SHEET" x="233.68" y="1.27" size="2.54" layer="94" font="vector"/>
-<attribute name="DRAWING_NAME" x="162.814" y="17.78" size="2.7432" layer="94" font="vector"/>
-<attribute name="DESIGNER" x="170.434" y="11.176" size="2.7432" layer="94" font="vector"/>
-</instance>
-<instance part="FD1" gate="G$1" x="228.6" y="25.4" smashed="yes"/>
-<instance part="FD2" gate="G$1" x="233.68" y="25.4" smashed="yes"/>
-<instance part="FD3" gate="G$1" x="238.76" y="25.4" smashed="yes"/>
-<instance part="FD4" gate="G$1" x="243.84" y="25.4" smashed="yes"/>
 <instance part="J3" gate="J1" x="172.72" y="106.68" smashed="yes">
 <attribute name="VALUE" x="167.64" y="99.314" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="167.64" y="114.808" size="1.778" layer="95" font="vector"/>
@@ -3141,10 +3128,6 @@ PWR LED</text>
 <instance part="GND8" gate="1" x="30.48" y="93.98" smashed="yes">
 <attribute name="VALUE" x="30.48" y="93.726" size="1.778" layer="96" align="top-center"/>
 </instance>
-<instance part="R4" gate="G$1" x="91.44" y="132.08" smashed="yes" rot="R90">
-<attribute name="NAME" x="89.916" y="132.08" size="1.778" layer="95" font="vector" rot="R90" align="bottom-center"/>
-<attribute name="VALUE" x="92.964" y="132.08" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
-</instance>
 <instance part="JP2" gate="G$1" x="91.44" y="119.38" smashed="yes" rot="R270">
 <attribute name="NAME" x="93.98" y="121.92" size="1.778" layer="95" font="vector" rot="R270"/>
 <attribute name="VALUE" x="88.9" y="121.92" size="1.778" layer="96" font="vector" rot="R270" align="top-left" display="off"/>
@@ -3155,6 +3138,21 @@ PWR LED</text>
 <instance part="JP1" gate="G$1" x="111.76" y="132.08" smashed="yes" rot="R270">
 <attribute name="NAME" x="112.141" y="129.54" size="1.778" layer="95" font="vector" rot="R270"/>
 <attribute name="VALUE" x="131.699" y="134.62" size="1.778" layer="96" font="vector" rot="R270" align="top-center" display="off"/>
+</instance>
+<instance part="R4" gate="G$1" x="91.44" y="132.08" smashed="yes" rot="R90">
+<attribute name="NAME" x="89.916" y="132.08" size="1.778" layer="95" font="vector" rot="R90" align="bottom-center"/>
+<attribute name="VALUE" x="92.964" y="132.08" size="1.778" layer="96" font="vector" rot="R90" align="top-center"/>
+</instance>
+<instance part="FD1" gate="G$1" x="236.22" y="30.48" smashed="yes"/>
+<instance part="FD2" gate="G$1" x="231.14" y="30.48" smashed="yes"/>
+<instance part="FD3" gate="G$1" x="220.98" y="30.48" smashed="yes"/>
+<instance part="FD4" gate="G$1" x="226.06" y="30.48" smashed="yes"/>
+<instance part="FRAME1" gate="G$1" x="0" y="0" smashed="yes"/>
+<instance part="FRAME1" gate="V" x="147.32" y="0" smashed="yes">
+<attribute name="LAST_DATE_TIME" x="160.02" y="1.27" size="2.54" layer="94" font="vector"/>
+<attribute name="SHEET" x="233.68" y="1.27" size="2.54" layer="94" font="vector"/>
+<attribute name="DRAWING_NAME" x="162.814" y="17.78" size="2.7432" layer="94" font="vector"/>
+<attribute name="DESIGNER" x="170.434" y="11.176" size="2.7432" layer="94" font="vector"/>
 </instance>
 </instances>
 <busses>
@@ -3281,8 +3279,8 @@ PWR LED</text>
 </segment>
 <segment>
 <pinref part="SUPPLY11" gate="G$1" pin="3.3V"/>
-<pinref part="R4" gate="G$1" pin="2"/>
 <wire x1="91.44" y1="139.7" x2="91.44" y2="137.16" width="0.1524" layer="91"/>
+<pinref part="R4" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="SCL" class="0">
@@ -3364,13 +3362,6 @@ PWR LED</text>
 <junction x="78.74" y="114.3"/>
 </segment>
 <segment>
-<wire x1="220.98" y1="106.68" x2="223.52" y2="106.68" width="0.1524" layer="91"/>
-<label x="223.52" y="106.68" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="J1" pin="2"/>
-</segment>
-</net>
-<net name="INT" class="0">
-<segment>
 <wire x1="220.98" y1="104.14" x2="223.52" y2="104.14" width="0.1524" layer="91"/>
 <label x="223.52" y="104.14" size="1.27" layer="95" xref="yes"/>
 <pinref part="J4" gate="J1" pin="1"/>
@@ -3383,9 +3374,9 @@ PWR LED</text>
 <label x="48.26" y="104.14" size="1.27" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<wire x1="220.98" y1="111.76" x2="223.52" y2="111.76" width="0.1524" layer="91"/>
-<label x="223.52" y="111.76" size="1.27" layer="95" xref="yes"/>
-<pinref part="J4" gate="J1" pin="4"/>
+<wire x1="220.98" y1="106.68" x2="223.52" y2="106.68" width="0.1524" layer="91"/>
+<label x="223.52" y="106.68" size="1.27" layer="95" xref="yes"/>
+<pinref part="J4" gate="J1" pin="2"/>
 </segment>
 </net>
 <net name="GPIO0" class="0">
@@ -3426,17 +3417,33 @@ PWR LED</text>
 <segment>
 <label x="93.98" y="111.76" size="1.27" layer="95" xref="yes"/>
 </segment>
+<segment>
+<wire x1="220.98" y1="111.76" x2="223.52" y2="111.76" width="0.1524" layer="91"/>
+<label x="223.52" y="111.76" size="1.27" layer="95" xref="yes"/>
+<pinref part="J4" gate="J1" pin="4"/>
+</segment>
 </net>
 <net name="N$5" class="0">
 <segment>
-<pinref part="R4" gate="G$1" pin="1"/>
 <pinref part="JP2" gate="G$1" pin="1"/>
 <wire x1="91.44" y1="127" x2="91.44" y2="124.46" width="0.1524" layer="91"/>
+<pinref part="R4" gate="G$1" pin="1"/>
 </segment>
 </net>
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="104,1,50.8,111.76,U1,VDDC,3.3V,,,"/>
+<approved hash="104,1,50.8,93.98,U1,GNDC,GND,,,"/>
+<approved hash="104,1,50.8,109.22,U1,VDD,3.3V,,,"/>
+<approved hash="104,1,50.8,96.52,U1,GNDV,GND,,,"/>
+<approved hash="104,1,50.8,114.3,U1,VDDV,3.3V,,,"/>
+<approved hash="104,1,180.34,58.42,J1,1,GND,,,"/>
+<approved hash="104,1,180.34,60.96,J1,2,3.3V,,,"/>
+<approved hash="104,1,220.98,58.42,J2,1,GND,,,"/>
+<approved hash="104,1,220.98,60.96,J2,2,3.3V,,,"/>
+</errors>
 </schematic>
 </drawing>
 <compatibility>
