@@ -2957,8 +2957,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <classes>
 <class number="0" name="default" width="0" drill="0">
 </class>
-<class number="1" name="Power" width="0.3048" drill="0">
-</class>
 </classes>
 <parts>
 <part name="U1" library="local-ricardo" deviceset="TMF8801" device="TMF8801" value="TMF8801"/>
