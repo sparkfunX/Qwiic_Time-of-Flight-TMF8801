@@ -8,6 +8,6 @@
 "[!INT!>" -t .005
 "Time-Of-Flight TMF8801" -s 0.04 -t .005 -a cc
 "[PWR]" -s 0.03 -t .005 -a cc
-"[!INT! PULLUP]" -s 0.03 -t .005 -a cc
-"[LED EN]" -s 0.03 -t .005 -a cc
-"[I2C PULLUP]" -s 0.03 -t .005 -a cc
+"[!INT! PULLUP]" -s 0.04 -t .005 -a cc
+"[LED EN]" -s 0.04 -t .005 -a cc
+"[I2C PULLUP]" -s 0.04 -t .005 -a cc
