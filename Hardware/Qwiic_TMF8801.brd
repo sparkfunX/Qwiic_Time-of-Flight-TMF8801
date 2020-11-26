@@ -1055,6 +1055,14 @@ You are welcome to use this library for commercial purposes. For attribution, we
 &lt;ul&gt;&lt;li&gt;FIDUCIAL&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
 <smd name="1" x="0" y="0" dx="1" dy="1" layer="1" roundness="100" cream="no"/>
 </package>
+<package name="DUMMY">
+<description>&lt;h3&gt;Dummy Footprint&lt;/h3&gt;
+&lt;p&gt;NOTHING HERE!!! For when you want a symbol with no package as an option against symbols with a package.&lt;/p&gt;
+
+&lt;p&gt;Devices using:
+&lt;ul&gt;&lt;li&gt;BADGERHACK_LOGO&lt;/li&gt;
+&lt;li&gt;FRAME-LETTER&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;</description>
+</package>
 </packages>
 </library>
 <library name="output">
@@ -4055,7 +4063,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="VALUE" x="17.907" y="9.652" size="0.6096" layer="27" font="vector" ratio="20" rot="R180" align="top-center"/>
 </element>
 <element name="FD1" library="SparkFun-Aesthetics" package="FIDUCIAL-1X2" value="FIDUCIAL1X2" x="0.762" y="24.638" smashed="yes"/>
-<element name="FD2" library="SparkFun-Aesthetics" package="FIDUCIAL-1X2" value="FIDUCIAL1X2" x="0.762" y="24.638" smashed="yes" rot="MR0"/>
 <element name="FD3" library="SparkFun-Aesthetics" package="FIDUCIAL-1X2" value="FIDUCIAL1X2" x="24.638" y="0.762" smashed="yes"/>
 <element name="FD4" library="SparkFun-Aesthetics" package="FIDUCIAL-1X2" value="FIDUCIAL1X2" x="24.638" y="0.762" smashed="yes" rot="MR0"/>
 <element name="U$5" library="output" package="#3#3V#1" value="" x="11.43" y="18.923" smashed="yes" rot="R90"/>
@@ -4079,6 +4086,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <element name="U$29" library="output" package="LED1" value="" x="6.3246" y="16.0274" smashed="yes" rot="MR0"/>
 <element name="U$30" library="output" package="PWR2" value="" x="6.477" y="19.05" smashed="yes"/>
 <element name="U$12" library="output" package="#INT0" value="" x="17.78" y="8.255" smashed="yes" rot="MR0"/>
+<element name="FRAME1" library="SparkFun-Aesthetics" package="DUMMY" value="FRAME-LETTERNO_PACKAGE" x="-0.254" y="-0.508" smashed="yes">
+<attribute name="DESIGNER" value="Ricardo R" x="-0.254" y="-0.508" size="1.778" layer="27" display="off"/>
+<attribute name="VERSION" value="v01" x="-0.254" y="-0.508" size="1.778" layer="27" display="off"/>
+</element>
 </elements>
 <signals>
 <signal name="GND">
