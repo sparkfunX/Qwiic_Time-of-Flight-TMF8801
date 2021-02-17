@@ -45,6 +45,9 @@ struct __attribute__((packed)) HardwareData
 class TMF8801
 {
 private:
+	// Default values
+	uint8_t commandDataValues[8] = {0x03, 0x23, 0x44, 0x00, 0x00, 0x64, 0xD8, 0xA4 };
+
 	ResultData resultData;
 	HardwareData hardwareData;
 	uint8_t address;
@@ -55,10 +58,10 @@ private:
 	bool applicationReady();
 	void doMeasurement();
 	void readHardwareData();
-	
+	void updateCommandData8();
 public:
-	TMF8801_GPIO_PROG gpio1_prog = TMF8801_GPIO_PROG::LOW_OUTPUT;
-	TMF8801_GPIO_PROG gpio0_prog = TMF8801_GPIO_PROG::LOW_OUTPUT;
+	TMF8801_GPIO_MODE gpio1_prog = TMF8801_GPIO_MODE::MODE_LOW_OUTPUT;
+	TMF8801_GPIO_MODE gpio0_prog = TMF8801_GPIO_MODE::MODE_LOW_OUTPUT;
 	bool performFactoryCalibration = false;	
 	uint8_t calibrationData[14] = { 0 };	
 	TMF8801() {}	
@@ -73,6 +76,15 @@ public:
 	void clearInterruptFlag();
 	const HardwareData& getHardwareData();
 	bool measurementEnabled();
+	void setGPIOMode(uint8_t gpioNumber, TMF8801_GPIO_MODE gpioMode);
+	TMF8801_GPIO_MODE getGPIOMode(uint8_t gpioNumber);
+	void setSamplingPeriod(uint8_t period);
+	uint8_t getSamplingPeriod();
+	uint8_t getRegisterValue(uint8_t reg);
+	void setRegisterValue(uint8_t reg, uint8_t value);
+	void getRegisterMultipleValues(uint8_t reg, uint8_t* buffer, uint8_t length);
+	void setRegisterMultipleValues(uint8_t reg, const uint8_t* buffer, uint8_t length);
+	
 };
 
 #endif

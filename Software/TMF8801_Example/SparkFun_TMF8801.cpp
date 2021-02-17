@@ -30,7 +30,7 @@ bool TMF8801::begin(uint8_t address, TwoWire& wirePort)
 	}
 	
 	// Reset TMF8801. Since it clears itself, we don't need to clear it
-	tmf8801_io.setRegisterBit(TMF8801_Registers::ENABLE, ENABLE_cpu_reset);
+	tmf8801_io.setRegisterBit(TMF8801_Registers::ENABLE_REG, ENABLE_cpu_reset);
 	
 	ready = cpuReady();
 	if (ready == false)
@@ -71,26 +71,12 @@ bool TMF8801::begin(uint8_t address, TwoWire& wirePort)
 	tmf8801_io.writeMultipleBytes(TMF8801_Registers::STATE_DATA_WR_0, ALGO_STATE, sizeof(ALGO_STATE));
 	
 	// Configure the application - values were taken from AN0597, pp. 22
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA7, 0x03);
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA7, 0x03);
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA6, 0x23);
-	
-	//uint8_t gpio = static_cast<uint8_t>(gpio1_prog);
-	//gpio = gpio << 4;
-	//gpio |= static_cast<uint8_t>(gpio0_prog);
-	
-	//tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA5, gpio); 
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA5, 0X00); 
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA4, 0x00);
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA3, 0x00);
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA2, 0x64); 
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA1, 0xFF);
-	tmf8801_io.writeSingleByte(TMF8801_Registers::CMD_DATA0, 0xFF);
+	updateCommandData8();
 	
 	// Start the application
 	tmf8801_io.writeSingleByte(TMF8801_Registers::COMMAND, COMMAND_MEASURE);
 	
-	delay(50);
+	delay(10);
 	
 	// Set lastError no NONE
 	lastError = TMF8801_Errors::NONE;
@@ -104,7 +90,7 @@ bool TMF8801::cpuReady()
 	// Wait for CPU_READY_TIMEOUT mSec until TMF8801 is ready
 	do
 	{
-		bool ready = tmf8801_io.isBitSet(TMF8801_Registers::ENABLE, ENABLE_cpu_ready);
+		bool ready = tmf8801_io.isBitSet(TMF8801_Registers::ENABLE_REG, ENABLE_cpu_ready);
 		if (ready == false)
 		{
 			counter++;
@@ -265,9 +251,136 @@ void TMF8801::readHardwareData()
 	memcpy(&hardwareData.serialNumber, serial, sizeof(serial));
 }
 
+void TMF8801::updateCommandData8()
+{
+	tmf8801_io.writeMultipleBytes(TMF8801_Registers::CMD_DATA7, commandDataValues, sizeof(commandDataValues));
+}
+
 bool TMF8801::measurementEnabled()
 {	
 	uint8_t result = getResultData().resultInfo;
 	result = result >> 6;
 	return result == 0;
+}
+
+void TMF8801::setGPIOMode(uint8_t gpioNumber, TMF8801_GPIO_MODE gpioMode)
+{
+	uint8_t currentRegisterValue;
+	gpioNumber &= 0x01;
+	if (gpioNumber == 0)
+	{
+		currentRegisterValue = tmf8801_io.readSingleByte(TMF8801_Registers::CMD_DATA5);
+		currentRegisterValue &= 0xf0;
+		currentRegisterValue |= static_cast<uint8_t>(gpioMode);	
+	}
+	else
+	{
+		currentRegisterValue = tmf8801_io.readSingleByte(TMF8801_Registers::CMD_DATA5);
+		currentRegisterValue &= 0x0f;
+		uint8_t tempMode = static_cast<uint8_t>(gpioMode);
+		tempMode = tempMode << 4;
+		currentRegisterValue |= tempMode;
+	}
+
+	tmf8801_io.setRegisterBit(TMF8801_Registers::ENABLE_REG, ENABLE_cpu_reset);
+	
+	bool ready = false;
+	do
+	{
+		ready = cpuReady();
+	} while (!ready);
+	
+	tmf8801_io.writeSingleByte(TMF8801_Registers::APPREQID, APPLICATION);
+	
+	ready = false;
+	do
+	{	
+		ready = applicationReady();     
+	} while (!ready);
+		
+	tmf8801_io.writeSingleByte(TMF8801_Registers::COMMAND, COMMAND_CALIBRATION);
+	tmf8801_io.writeMultipleBytes(TMF8801_Registers::FACTORY_CALIB_0, calibrationData, sizeof(calibrationData));
+	tmf8801_io.writeMultipleBytes(TMF8801_Registers::STATE_DATA_WR_0, ALGO_STATE, sizeof(ALGO_STATE));
+	
+	commandDataValues[COMMAND_DATA_8_REGISTERS::CMD_DATA_5] = currentRegisterValue;
+	updateCommandData8();
+	
+	// Start the application
+	tmf8801_io.writeSingleByte(TMF8801_Registers::COMMAND, COMMAND_MEASURE);
+	
+	delay(50);
+}
+
+TMF8801_GPIO_MODE TMF8801::getGPIOMode(uint8_t gpioNumber)
+{
+	uint8_t currentMode = tmf8801_io.readSingleByte(TMF8801_Registers::COMMAND);
+	// The line below prevents passing non-existing gpioNumbers
+	gpioNumber &= 0x01;			
+	if (gpioNumber == 0x01)
+	{
+		currentMode &= 0xf0;
+		currentMode = currentMode >> 4;
+	}
+	else
+	{
+		currentMode &= 0x0f;
+	}
+	
+	return static_cast<TMF8801_GPIO_MODE>(currentMode);
+}
+
+void TMF8801::setSamplingPeriod(uint8_t period)
+{
+	tmf8801_io.setRegisterBit(TMF8801_Registers::ENABLE_REG, ENABLE_cpu_reset);
+	
+	bool ready = false;
+	do
+	{
+		ready = cpuReady();
+	} while (!ready);
+	
+	tmf8801_io.writeSingleByte(TMF8801_Registers::APPREQID, APPLICATION);
+	
+	ready = false;
+	do
+	{	
+		ready = applicationReady();     
+	} while (!ready);
+		
+	tmf8801_io.writeSingleByte(TMF8801_Registers::COMMAND, COMMAND_CALIBRATION);
+	tmf8801_io.writeMultipleBytes(TMF8801_Registers::FACTORY_CALIB_0, calibrationData, sizeof(calibrationData));
+	tmf8801_io.writeMultipleBytes(TMF8801_Registers::STATE_DATA_WR_0, ALGO_STATE, sizeof(ALGO_STATE));
+	
+	commandDataValues[COMMAND_DATA_8_REGISTERS::CMD_DATA_2] = period;
+	updateCommandData8();
+	
+	// Start the application
+	tmf8801_io.writeSingleByte(TMF8801_Registers::COMMAND, COMMAND_MEASURE);
+	
+	delay(10);
+}
+
+uint8_t TMF8801::getSamplingPeriod()
+{
+	return tmf8801_io.readSingleByte(TMF8801_Registers::CMD_DATA2);
+}
+
+uint8_t TMF8801::getRegisterValue(uint8_t reg)
+{
+	return tmf8801_io.readSingleByte(static_cast<TMF8801_Registers>(reg));	
+}
+
+void TMF8801::setRegisterValue(uint8_t reg, uint8_t value)
+{
+	tmf8801_io.writeSingleByte(static_cast<TMF8801_Registers>(reg), value);
+}
+
+void TMF8801::getRegisterMultipleValues(uint8_t reg, uint8_t* buffer, uint8_t length)
+{
+	tmf8801_io.readMultipleBytes(static_cast<TMF8801_Registers>(reg), buffer, length);
+}
+
+void TMF8801::setRegisterMultipleValues(uint8_t reg, const uint8_t* buffer, uint8_t length)
+{
+	tmf8801_io.writeMultipleBytes(static_cast<TMF8801_Registers>(reg), buffer, length);
 }

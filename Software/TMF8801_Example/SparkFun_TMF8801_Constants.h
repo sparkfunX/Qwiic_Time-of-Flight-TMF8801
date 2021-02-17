@@ -33,6 +33,7 @@ const uint8_t CONTENT_CALIBRATION = 0x0a;
 const uint8_t COMMAND_RESULT = 0x55;
 const uint8_t INTERRUPT_MASK = 0x01;
 const uint8_t COMMAND_SERIAL = 0x47;
+const uint8_t COMMAND_STOP = 0xff;
 
 // Values below were taken from AN000597, pp 22
 const uint8_t ALGO_STATE[11] = { 0xB1, 0xA9, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -45,7 +46,7 @@ const uint8_t ENABLE_cpu_reset = 7;
 const uint8_t ENABLE_cpu_ready = 6;
 
 // This enum has all errors that can be written to Error variable
-enum TMF8801_Errors : uint8_t
+enum class TMF8801_Errors : uint8_t
 {
 	I2C_COMM_ERROR,
 	CPU_RESET_TIMEOUT,
@@ -55,16 +56,40 @@ enum TMF8801_Errors : uint8_t
 	NONE
 };
 
-enum TMF8801_GPIO_PROG : uint8_t
+enum COMMAND_DATA_8_REGISTERS : uint8_t
 {
-	LOW_INPUT = 0x02,
-	HIGH_INPUT = 0x04,
-	LOW_OUTPUT = 0x10,
-	HIGH_OUTPUT = 0x20,
+	CMD_DATA_7,
+	CMD_DATA_6,
+	CMD_DATA_5,
+	CMD_DATA_4,
+	CMD_DATA_3,
+	CMD_DATA_2,
+	CMD_DATA_1,
+	CMD_DATA_0
+};
+
+enum class TMF8801_GPIO_MODE : uint8_t
+{
+	MODE_INPUT,
+	MODE_LOW_INPUT,
+	MODE_HIGH_INPUT,
+	MODE_VCSEL,
+	MODE_LOW_OUTPUT,
+	MODE_HIGH_OUTPUT,
+	MODE_RESERVED_6,
+	MODE_RESERVED_7,
+	MODE_RESERVED_8,
+	MODE_RESERVED_9,
+	MODE_RESERVED_10,
+	MODE_RESERVED_11,
+	MODE_RESERVED_12,
+	MODE_RESERVED_13,
+	MODE_RESERVED_14,
+	MODE_RESERVED_15,
 };
 
 // Registers definitions
-enum TMF8801_Registers : uint8_t
+enum class TMF8801_Registers : uint8_t
 {
 	APPID                  = 0x00,
 	APPREQID               = 0x02,
@@ -115,7 +140,7 @@ enum TMF8801_Registers : uint8_t
 	OBJECT_HITS_3          = 0x3A,
 	FACTORY_CALIB_0        = 0x20,
 	STATE_DATA_WR_0        = 0x2E,
-	ENABLE                 = 0xE0,
+	ENABLE_REG             = 0xE0,
 	INT_STATUS             = 0xE1,
 	INT_ENAB               = 0xE2,
 	ID                     = 0xE3,
