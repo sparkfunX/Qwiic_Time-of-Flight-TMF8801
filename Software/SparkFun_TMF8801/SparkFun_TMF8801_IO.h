@@ -25,20 +25,18 @@ class TMF8801_IO
 {
 private:
 	TwoWire* _i2cPort;
-	uint8_t _address;
-	uint8_t enumToUint(TMF8801_Registers const registerName);
+	byte _address;
+
 public:
 	TMF8801_IO() {}
-	bool begin(uint8_t address, TwoWire& wirePort);
+	bool begin(byte address, TwoWire& wirePort);
 	bool isConnected();
-	uint8_t readSingleByte(TMF8801_Registers const registerName);
-	void writeSingleByte(TMF8801_Registers const registerName, uint8_t const value);
-	void readMultipleBytes(TMF8801_Registers const registerName, uint8_t* buffer, uint8_t const packetLength);
-	void writeMultipleBytes(TMF8801_Registers const registerName, const uint8_t* buffer, uint8_t const packetLength);
-	void setRegisterBit(TMF8801_Registers const registerName, uint8_t const bitPosition);
-	void clearRegisterBit(TMF8801_Registers const registerName, uint8_t const bitPosition);
-	bool isBitSet(TMF8801_Registers const registerName, uint8_t const bitPosition);
-	
-
+	byte readSingleByte(byte registerAddress);
+	void writeSingleByte(byte registerAddress, byte value);
+	void readMultipleBytes(byte registerAddress, byte* buffer, byte packetLength);
+	void writeMultipleBytes(byte registerAddress, const byte* buffer, byte packetLength);
+	void setRegisterBit(byte registerAddress, byte bitPosition);
+	void clearRegisterBit(byte registerAddress, byte bitPosition);
+	bool isBitSet(byte registerAddress, byte bitPosition);
 };
 #endif
