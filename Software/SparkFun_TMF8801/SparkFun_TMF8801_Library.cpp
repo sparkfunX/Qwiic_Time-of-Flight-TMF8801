@@ -1,6 +1,8 @@
 /*
   This is a library written for the AMS TMF-8801 Time-of-flight sensor
-  SparkFun sells these at its website: www.sparkfun.com
+  SparkFun sells these at its website:
+  https://www.sparkfun.com/products/17716
+
   Do you like this library? Help support open source hardware. Buy a board!
 
   Written by Ricardo Ramos  @ SparkFun Electronics, February 15th, 2021
@@ -14,7 +16,6 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdio.h>
 #include "SparkFun_TMF8801_Library.h"
 
 bool TMF8801::begin(byte address, TwoWire& wirePort)
@@ -99,16 +100,19 @@ bool TMF8801::cpuReady()
 
 bool TMF8801::dataAvailable()
 {
+	// Returns true if REGISTER_CONTENTS is 0x55
 	byte result = tmf8801_io.readSingleByte(REGISTER_REGISTER_CONTENTS);
 	return result == COMMAND_RESULT;
 }
 
 bool TMF8801::isConnected()
 {
+	// Polls I2C interface
 	bool twiConnected = tmf8801_io.isConnected();
 	if (!twiConnected)
 		return false;
 
+	// Returns true if TMF8801 ID returned id is 0x07
 	return (tmf8801_io.readSingleByte(REGISTER_ID) == CHIP_ID_NUMBER);
 }
 
@@ -142,6 +146,7 @@ byte TMF8801::getLastError()
 
 bool TMF8801::getCalibrationData(byte* calibrationResults)
 {
+	// Returns device's calibration data values (14 bytes)
 	lastError = ERROR_NONE;
 	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_FACTORY_CALIBRATION);
 	uint32_t calibrationStart = millis();
@@ -159,40 +164,18 @@ bool TMF8801::getCalibrationData(byte* calibrationResults)
 		delay(100);
 	} while (millis() - calibrationStart < 10000);
 
+	// returns false and writes the lastError if TMF8801 calibration data read operation fails
 	lastError = ERROR_FACTORY_CALIBRATION_ERROR;
 	return false;
 }
 
 void TMF8801::setCalibrationData(const byte* newCalibrationData)
 {
+	// Copies passed array into calibrationData
 	memcpy(calibrationData, newCalibrationData, CALIBRATION_DATA_LENGTH);
 
-	tmf8801_io.setRegisterBit(REGISTER_ENABLE_REG, CPU_RESET);
-
-	bool ready = false;
-	do
-	{
-		ready = cpuReady();
-	} while (!ready);
-
-	tmf8801_io.writeSingleByte(REGISTER_APPREQID, APPLICATION);
-
-	ready = false;
-	do
-	{
-		ready = applicationReady();
-	} while (!ready);
-
-	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_CALIBRATION);
-	tmf8801_io.writeMultipleBytes(REGISTER_FACTORY_CALIB_0, calibrationData, sizeof(calibrationData));
-	tmf8801_io.writeMultipleBytes(REGISTER_STATE_DATA_WR_0, ALGO_STATE, sizeof(ALGO_STATE));
-
-	updateCommandData8();
-
-	// Start the application
-	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_MEASURE);
-
-	delay(50);
+	// Reset device with updated values
+	resetDevice();
 }
 
 byte TMF8801::getApplicationVersionMajor()
@@ -215,6 +198,7 @@ int TMF8801::getSerialNumber()
 	int serial = 0;
 	byte value[2];
 
+	// Request serial number to device
 	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_SERIAL);
 	byte result = tmf8801_io.readSingleByte(REGISTER_REGISTER_CONTENTS);
 	do
@@ -223,6 +207,7 @@ int TMF8801::getSerialNumber()
 		result = tmf8801_io.readSingleByte(REGISTER_REGISTER_CONTENTS);
 	} while (result != COMMAND_SERIAL);
 
+	// Read two bytes and combine them as a single int
 	tmf8801_io.readMultipleBytes(REGISTER_STATE_DATA_0, value, 2);
 	serial = value[1];
 	serial = serial << 8;
@@ -232,11 +217,13 @@ int TMF8801::getSerialNumber()
 
 byte TMF8801::getMeasurementReliability()
 {
+	// Returns result info without measurement status bits
 	return (resultInfo & 0x3f);
 }
 
 byte TMF8801::getMeasurementStatus()
 {
+	// returns resultInfo without measurement reliability bits
 	return (resultInfo >> 6);
 }
 
@@ -245,39 +232,45 @@ byte TMF8801::getMeasurementNumber()
 	return resultNumber;
 }
 
-void TMF8801::resetBoard()
+void TMF8801::resetDevice()
 {
+	// Applies newly updated array into main application
 	tmf8801_io.setRegisterBit(REGISTER_ENABLE_REG, CPU_RESET);
 
+	// Checks if CPU is ready
 	bool ready = false;
 	do
 	{
 		ready = cpuReady();
 	} while (!ready);
 
+	// Loads measurement application
 	tmf8801_io.writeSingleByte(REGISTER_APPREQID, APPLICATION);
-
 	ready = false;
 	do
 	{
 		ready = applicationReady();
 	} while (!ready);
 
+	// Write calibration data and algorithm state into device
 	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_CALIBRATION);
 	tmf8801_io.writeMultipleBytes(REGISTER_FACTORY_CALIB_0, calibrationData, sizeof(calibrationData));
 	tmf8801_io.writeMultipleBytes(REGISTER_STATE_DATA_WR_0, ALGO_STATE, sizeof(ALGO_STATE));
 
+	// Updates CMD_DATA_7 to CMD_DATA_0
 	updateCommandData8();
 
-	// Start the application
+	// Start measurements application
 	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_MEASURE);
 
+	// Wait 50 msec then return
 	delay(50);
 }
 
 void TMF8801::wakeUpDevice()
 {
 	byte result;
+	// Write ENABLE_REG to bring device back to operation and wait until it's back
 	do
 	{
 		tmf8801_io.writeSingleByte(REGISTER_ENABLE_REG, 0x01);
@@ -304,7 +297,9 @@ void TMF8801::doMeasurement()
 
 int TMF8801::getDistance()
 {
+	// Returns interrupt pin to open drain
 	clearInterruptFlag();
+	// Reads measurement data
 	doMeasurement();
 	return distancePeak;
 }
@@ -332,11 +327,13 @@ void TMF8801::clearInterruptFlag()
 
 void TMF8801::updateCommandData8()
 {
+	// Writes commandDataValues array into CMD_DATA_7 to CMD_DATA_0 registers
 	tmf8801_io.writeMultipleBytes(REGISTER_CMD_DATA7, commandDataValues, sizeof(commandDataValues));
 }
 
 bool TMF8801::measurementEnabled()
 {
+	// Returns true if resultInfo 7:6 are both zeroed
 	byte result = resultInfo;
 	result = result >> 6;
 	return result == 0;
@@ -344,18 +341,21 @@ bool TMF8801::measurementEnabled()
 
 void TMF8801::setGPIO0Mode(byte gpioMode)
 {
+	// Does not allow invalid values to be set into register
 	if (gpioMode > MODE_HIGH_OUTPUT)
 		return;
 
 	byte currentRegisterValue;
 
+	// Read current value and change only GPIO0 values
 	currentRegisterValue = tmf8801_io.readSingleByte(CMD_DATA_5);
 	currentRegisterValue &= 0xf0;
 	currentRegisterValue |= gpioMode;
 	
 	commandDataValues[CMD_DATA_5] = currentRegisterValue;
 
-	resetBoard();
+	// Reset device with updated values
+	resetDevice();
 }
 
 byte TMF8801::getGPIO0Mode()
@@ -364,18 +364,21 @@ byte TMF8801::getGPIO0Mode()
 }
 
 void TMF8801::setGPIO1Mode(byte gpioMode)
-{
+{	
+	// Does not allow invalid values to be set into register
 	if (gpioMode > MODE_HIGH_OUTPUT)
 		return;
 
 	byte currentRegisterValue;
 
+	// Read current value and change only GPIO1 values
 	currentRegisterValue = tmf8801_io.readSingleByte(CMD_DATA_5);
 	currentRegisterValue &= 0x0f;
 	currentRegisterValue |= (gpioMode << 4);
 	commandDataValues[CMD_DATA_5] = currentRegisterValue;
 
-	resetBoard();
+	// Reset device with updated values
+	resetDevice();
 }
 
 byte TMF8801::getGPIO1Mode()
@@ -385,8 +388,11 @@ byte TMF8801::getGPIO1Mode()
 
 void TMF8801::setSamplingPeriod(byte period)
 {
+	// Program register CMD_DATA_2 with the sampling period
 	commandDataValues[CMD_DATA_2] = period;
-	resetBoard();
+
+	// Reset device with updated values
+	resetDevice();
 }
 
 byte TMF8801::getSamplingPeriod()

@@ -1,10 +1,12 @@
 /*
   This is a library written for the AMS TMF-8801 Time-of-flight sensor
-  SparkFun sells these at its website: www.sparkfun.com
+  SparkFun sells these at its website:
+  https://www.sparkfun.com/products/17716
+
   Do you like this library? Help support open source hardware. Buy a board!
 
   Written by Ricardo Ramos  @ SparkFun Electronics, February 15th, 2021
-  This file holds all constants used by the TMF-8801 ToF sensor.
+  This file is the core of the TMF-8801 ToF sensor library.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
