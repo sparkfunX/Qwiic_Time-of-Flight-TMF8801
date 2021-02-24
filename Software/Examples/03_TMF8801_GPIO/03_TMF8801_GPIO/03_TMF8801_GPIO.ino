@@ -18,7 +18,7 @@
   Hardware Connections:
   - Attach the Qwiic Shield to your Arduino/Photon/ESP32 or other
   - Attach a LED anode to GPIO0 through a 1k ohm resistor and it's cathode to ground
-  - Attach a 10k resistor from GPIO1 pin to 3.3V
+  - Attach a 10k pull-up resistor from GPIO1 pin to 3.3V
   - Plug the sensor onto the shield
   - Serial.print it out at 115200 baud to serial monitor.
 */
@@ -62,7 +62,8 @@ void setup()
     while (true);
   }
   
-  // Device will stop measuring if GPIO1 is pulled low.
+  // Device will stop to update the measurement value if GPIO1 is pulled low but you will still be able to get the last measured value.
+  // It will resume updating distance measurements as soon as GPIO1 is pulled high.
   tmf8801.setGPIO1Mode(MODE_LOW_INPUT);
 
   // Initialize gpio0mode variable;
