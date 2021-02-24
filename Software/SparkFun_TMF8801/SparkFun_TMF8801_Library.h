@@ -121,12 +121,6 @@ public:
 	// Returns current GPIO1 mode - You can find returned values in SparkFun_TMF8801_Constants.h
 	byte getGPIO1Mode();
 
-	// Sets measurement sampling period in msec. Will only sample once if value is 0. Default value on powerup is 100 msec.
-	void setSamplingPeriod(byte period);
-
-	// Returns sampling period in msec.
-	byte getSamplingPeriod();
-
 	// Returns specific register value. Registers' descriptions can be found in TMF8801 datasheet.
 	byte getRegisterValue(byte reg);
 

@@ -348,19 +348,24 @@ void TMF8801::setGPIO0Mode(byte gpioMode)
 	byte currentRegisterValue;
 
 	// Read current value and change only GPIO0 values
-	currentRegisterValue = tmf8801_io.readSingleByte(CMD_DATA_5);
+	currentRegisterValue = tmf8801_io.readSingleByte(REGISTER_CMD_DATA0);
 	currentRegisterValue &= 0xf0;
-	currentRegisterValue |= gpioMode;
-	
+	currentRegisterValue += gpioMode;
 	commandDataValues[CMD_DATA_5] = currentRegisterValue;
 
-	// Reset device with updated values
-	resetDevice();
+	// Send command to device
+	byte buffer[2];
+	buffer[0] = currentRegisterValue;
+	buffer[1] = 0x0f;
+	tmf8801_io.writeMultipleBytes(REGISTER_CMD_DATA0, buffer, 2);
 }
 
 byte TMF8801::getGPIO0Mode()
 {
-	return (tmf8801_io.readSingleByte(REGISTER_COMMAND) & 0x0f);
+	// Read REGISTER_CMD_DATA0 and mask accordingly
+	byte currentRegisterValue;
+	currentRegisterValue = tmf8801_io.readSingleByte(REGISTER_CMD_DATA0);
+	return (currentRegisterValue & 0x0f);
 }
 
 void TMF8801::setGPIO1Mode(byte gpioMode)
@@ -372,32 +377,24 @@ void TMF8801::setGPIO1Mode(byte gpioMode)
 	byte currentRegisterValue;
 
 	// Read current value and change only GPIO1 values
-	currentRegisterValue = tmf8801_io.readSingleByte(CMD_DATA_5);
+	currentRegisterValue = tmf8801_io.readSingleByte(REGISTER_CMD_DATA0);
 	currentRegisterValue &= 0x0f;
-	currentRegisterValue |= (gpioMode << 4);
+	currentRegisterValue += (gpioMode << 4);
 	commandDataValues[CMD_DATA_5] = currentRegisterValue;
 
-	// Reset device with updated values
-	resetDevice();
+	// Send command to device
+	byte buffer[2];
+	buffer[0] = currentRegisterValue;
+	buffer[1] = 0x0f;
+	tmf8801_io.writeMultipleBytes(REGISTER_CMD_DATA0, buffer, 2);
 }
 
 byte TMF8801::getGPIO1Mode()
 {
-	return (tmf8801_io.readSingleByte(REGISTER_COMMAND) >> 4);
-}
-
-void TMF8801::setSamplingPeriod(byte period)
-{
-	// Program register CMD_DATA_2 with the sampling period
-	commandDataValues[CMD_DATA_2] = period;
-
-	// Reset device with updated values
-	resetDevice();
-}
-
-byte TMF8801::getSamplingPeriod()
-{
-	return tmf8801_io.readSingleByte(CMD_DATA_2);
+	// Read REGISTER_CMD_DATA0 and shift accordingly
+	byte currentRegisterValue;
+	currentRegisterValue = tmf8801_io.readSingleByte(REGISTER_CMD_DATA0);
+	return (currentRegisterValue >> 4);
 }
 
 byte TMF8801::getRegisterValue(byte reg)
