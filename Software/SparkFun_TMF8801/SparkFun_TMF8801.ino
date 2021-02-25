@@ -15,40 +15,13 @@
   You should have received a copy of the GNU General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-#include <Arduino.h>
-#include <stdint.h>
 #include <Wire.h>
 #include "SparkFun_TMF8801_Library.h"
 
-bool toggle = false;
 TMF8801 tmf8801;
 
-int count = 0;
-
-void printErrorMessage()
-{
-	switch (tmf8801.getLastError())
-	{
-	case ERROR_I2C_COMM_ERROR:
-		Serial.println("Error: I2C communication error");
-		break;
-
-	case ERROR_CPU_RESET_TIMEOUT:
-		Serial.println("Error: Timeout on CPU reset");
-		break;
-
-	case ERROR_WRONG_CHIP_ID:
-		Serial.println("Error: Chip ID mismatch");
-		break;
-
-	case ERROR_CPU_LOAD_APPLICATION_ERROR:
-		Serial.println("Error: Load application error");
-		break;
-
-	default:
-		break;
-	}
-}
+// This array will hold the updated calibration data
+byte newCalibrationData[14] = { 0 };
 
 void setup()
 {
@@ -81,10 +54,40 @@ void setup()
 		while (true);
 	}
 
-	// Configure GPIO as output
-	tmf8801.setGPIO0Mode(MODE_HIGH_OUTPUT);
-	tmf8801.setGPIO1Mode(MODE_HIGH_OUTPUT);
+	Serial.println("Calibrating... please wait !");
+
+	// Pass  newCalibrationData array to getCalibrationData function and check if calibration was successful or not
+	if (tmf8801.getCalibrationData(newCalibrationData) == true)
+	{
+		// Sends calibration data to the device
+		tmf8801.setCalibrationData(newCalibrationData);
+		Serial.println("Updated calibration data was set.");
+		Serial.println("New calibration data array is as follows:");
+
+		// Prints out the updated calibration array
+		for (int i = 0; i < 13; i++)
+		{
+			if (newCalibrationData[i] < 10)
+				Serial.print("0x0");
+			else
+				Serial.print("0x");
+			Serial.print(newCalibrationData[i], HEX);
+			Serial.print(", ");
+		}
+
+		if (newCalibrationData[13] < 10)
+			Serial.print("0x0");
+		else
+			Serial.print("0x");
+		Serial.println(newCalibrationData[13], HEX);
+	}
+	else
+	{
+		printErrorMessage();
+		Serial.println("Default values will be used as calibration data.");
+	}
 }
+
 
 void loop()
 {
@@ -101,14 +104,38 @@ void loop()
 		Serial.print("Distance: ");
 		Serial.print(tmf8801.getDistance());
 		Serial.println(" mm");
-		Serial.print("Measurement reliability (0 = worst, 63 = best): ");
-		Serial.println(tmf8801.getMeasurementReliability());
-		Serial.print("Measurement status: ");
-		Serial.println(tmf8801.getMeasurementStatus());
-		Serial.print("Measurement number: ");
-		Serial.println(tmf8801.getMeasurementNumber());
-
 	}
 
-	delay(1000);
+	// Wait half a second and start over
+	delay(500);
+}
+
+// This function will print a user-friendly error message.
+void printErrorMessage()
+{
+	switch (tmf8801.getLastError())
+	{
+	case ERROR_I2C_COMM_ERROR:
+		Serial.println("Error: I2C communication error");
+		break;
+
+	case ERROR_CPU_RESET_TIMEOUT:
+		Serial.println("Error: Timeout on CPU reset");
+		break;
+
+	case ERROR_WRONG_CHIP_ID:
+		Serial.println("Error: Chip ID mismatch");
+		break;
+
+	case ERROR_CPU_LOAD_APPLICATION_ERROR:
+		Serial.println("Error: Load application error");
+		break;
+
+	case ERROR_FACTORY_CALIBRATION_ERROR:
+		Serial.println("Error: Calibration was not successful. Please try again.");
+		break;
+
+	default:
+		break;
+	}
 }

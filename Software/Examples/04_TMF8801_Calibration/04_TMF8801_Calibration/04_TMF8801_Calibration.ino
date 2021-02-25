@@ -7,7 +7,9 @@
   Feel like supporting our work? Buy a board from SparkFun!
   https://www.sparkfun.com/products/17716
 
-  This example illustrates how to set one GPIO pin as input and the other GPIO pin as output.
+  This example illustrates how perform a factory calibration in the device and get the calibration data back so it
+  can be used instead of the default calibration data. This can be useful if the device is mounted in an enclosure with a
+  protective lens, for example.
   The actual measurement status will depend if algImmediateInterrupt is set or not.
   The default value is algImmediateInterrupt cleared (0).
   Further information can be found in the device's datasheet.
@@ -16,10 +18,9 @@
 
   Hardware Connections:
   - Attach the Qwiic Shield to your Arduino/Photon/ESP32 or other
-  - Attach a LED anode to GPIO0 through a 1k ohm resistor and it's cathode to ground
-  - Attach a 10k pull-up resistor from GPIO1 pin to 3.3V
   - Plug the sensor onto the shield
   - Serial.print it out at 115200 baud to serial monitor.
+  - Get the updated calibration data values 
 */
 
 #include <Wire.h>
@@ -27,8 +28,8 @@
 
 TMF8801 tmf8801;
 
-// Holds the current GPIO modes
-byte gpio0mode;
+// This array will hold the updated calibration data
+byte newCalibrationData[14] = { 0 };
 
 void setup()
 {
@@ -60,13 +61,41 @@ void setup()
     Serial.println("System halted.");
     while (true);
   }
-  
-  // Device will stop to update the measurement value if GPIO1 is pulled low but you will still be able to get the last measured value.
-  // It will resume updating distance measurements as soon as GPIO1 is pulled high.
-  tmf8801.setGPIO1Mode(MODE_LOW_INPUT);
 
-  // Initialize gpio0mode variable;
-  gpio0mode = MODE_LOW_OUTPUT;
+  Serial.println("Calibrating... please wait !");
+
+  // Pass  newCalibrationData array to getCalibrationData function and check if calibration was successful or not
+  if (tmf8801.getCalibrationData(newCalibrationData) == true)
+  { 
+    // You must call tmf8801.setCalibrationData after calling tmf8801.begin() so it can update the default calibration data with
+    // the new values. You can, alternatively, store this array into the microcontroller's EEPROM and load it on powerup.
+    tmf8801.setCalibrationData(newCalibrationData);   
+    
+    Serial.println("Updated calibration data was set.");
+    Serial.println("New calibration data array is as follows:");
+
+    // Prints out the updated calibration array
+    for (int i = 0; i < 13; i++)
+    {
+      if (newCalibrationData[i] < 10)
+        Serial.print("0x0");
+      else
+        Serial.print("0x");
+      Serial.print(newCalibrationData[i], HEX);
+      Serial.print(", ");
+    }
+
+    if (newCalibrationData[13] < 10)
+      Serial.print("0x0");
+    else
+      Serial.print("0x");
+    Serial.println(newCalibrationData[13], HEX);
+  }
+  else
+  {
+    printErrorMessage();
+    Serial.println("Default values will be used as calibration data.");
+  }
 }
 
 
@@ -87,19 +116,6 @@ void loop()
     Serial.println(" mm");
   }
 
-  // Toggle GPIO0 mode in every sampling cycle
-  if (gpio0mode == MODE_LOW_OUTPUT)
-  {
-    tmf8801.setGPIO0Mode(MODE_HIGH_OUTPUT);
-  }
-  else
-  {
-    tmf8801.setGPIO0Mode(MODE_LOW_OUTPUT);
-  }
-  
-  // Poll GPIO0 current mode so it can be used in the next iteration
-  gpio0mode = tmf8801.getGPIO0Mode();
-
   // Wait half a second and start over
   delay(500);
 }
@@ -107,29 +123,29 @@ void loop()
 // This function will print a user-friendly error message.
 void printErrorMessage()
 {
-	switch (tmf8801.getLastError())
-	{
-	case ERROR_I2C_COMM_ERROR:
-		Serial.println("Error: I2C communication error");
-		break;
+  switch (tmf8801.getLastError())
+  {
+  case ERROR_I2C_COMM_ERROR:
+    Serial.println("Error: I2C communication error");
+    break;
 
-	case ERROR_CPU_RESET_TIMEOUT:
-		Serial.println("Error: Timeout on CPU reset");
-		break;
+  case ERROR_CPU_RESET_TIMEOUT:
+    Serial.println("Error: Timeout on CPU reset");
+    break;
 
-	case ERROR_WRONG_CHIP_ID:
-		Serial.println("Error: Chip ID mismatch");
-		break;
+  case ERROR_WRONG_CHIP_ID:
+    Serial.println("Error: Chip ID mismatch");
+    break;
 
-	case ERROR_CPU_LOAD_APPLICATION_ERROR:
-		Serial.println("Error: Load application error");
-		break;
+  case ERROR_CPU_LOAD_APPLICATION_ERROR:
+    Serial.println("Error: Load application error");
+    break;
 
-	case ERROR_FACTORY_CALIBRATION_ERROR:
-		Serial.println("Error: Calibration was not successful. Please try again.");
-		break;
+  case ERROR_FACTORY_CALIBRATION_ERROR:
+    Serial.println("Error: Calibration was not successful. Please try again.");
+    break;
 
-	default:
-		break;
-	}
+  default:
+    break;
+  }
 }

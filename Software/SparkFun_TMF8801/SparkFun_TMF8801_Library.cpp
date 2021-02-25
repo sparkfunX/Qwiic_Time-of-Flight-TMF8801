@@ -146,6 +146,9 @@ byte TMF8801::getLastError()
 
 bool TMF8801::getCalibrationData(byte* calibrationResults)
 {
+	tmf8801_io.writeSingleByte(REGISTER_COMMAND, 0xff);
+	delay(50);
+
 	// Returns device's calibration data values (14 bytes)
 	lastError = ERROR_NONE;
 	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_FACTORY_CALIBRATION);
@@ -160,10 +163,9 @@ bool TMF8801::getCalibrationData(byte* calibrationResults)
 			tmf8801_io.readMultipleBytes(REGISTER_FACTORY_CALIB_0, calibrationResults, CALIBRATION_DATA_LENGTH);
 			return true;
 		}
-
-		delay(100);
-	} while (millis() - calibrationStart < 10000);
-
+		delay(50);
+	} while (millis() - calibrationStart < 30000);
+	
 	// returns false and writes the lastError if TMF8801 calibration data read operation fails
 	lastError = ERROR_FACTORY_CALIBRATION_ERROR;
 	return false;

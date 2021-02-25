@@ -88,28 +88,32 @@ void loop()
 	delay(500);
 }
 
-// Print friendly error message
+// This function will print a user-friendly error message.
 void printErrorMessage()
 {
-  switch (tmf8801.getLastError())
-  {
-  case ERROR_I2C_COMM_ERROR:
-    Serial.println("Error: I2C communication error");
-    break;
+	switch (tmf8801.getLastError())
+	{
+	case ERROR_I2C_COMM_ERROR:
+		Serial.println("Error: I2C communication error");
+		break;
 
-  case ERROR_CPU_RESET_TIMEOUT:
-    Serial.println("Error: Timeout on CPU reset");
-    break;
+	case ERROR_CPU_RESET_TIMEOUT:
+		Serial.println("Error: Timeout on CPU reset");
+		break;
 
-  case ERROR_WRONG_CHIP_ID:
-    Serial.println("Error: Chip ID mismatch");
-    break;
+	case ERROR_WRONG_CHIP_ID:
+		Serial.println("Error: Chip ID mismatch");
+		break;
 
-  case ERROR_CPU_LOAD_APPLICATION_ERROR:
-    Serial.println("Error: Load application error");
-    break;
+	case ERROR_CPU_LOAD_APPLICATION_ERROR:
+		Serial.println("Error: Load application error");
+		break;
 
-  default:
-    break;
-  }
+	case ERROR_FACTORY_CALIBRATION_ERROR:
+		Serial.println("Error: Calibration was not successful. Please try again.");
+		break;
+
+	default:
+		break;
+	}
 }
