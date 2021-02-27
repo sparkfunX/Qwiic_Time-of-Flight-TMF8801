@@ -19,6 +19,7 @@
 #ifndef __TMF8801_LIBRARY__
 #define __TMF8801_LIBRARY__
 
+#include <Arduino.h>
 #include <Wire.h>
 #include "SparkFun_TMF8801_Constants.h"
 #include "SparkFun_TMF8801_IO.h"
@@ -149,7 +150,7 @@ public:
 	byte getApplicationVersionMinor();
 
 	// Returns device's serial number
-	int getSerialNumber();
+	short getSerialNumber();
 
 	// Returns measurement reliability. 0 = worse, 63 = best. Check TMF8801 datasheet.
 	byte getMeasurementReliability();

@@ -19,6 +19,7 @@
 #ifndef __TMF8801_LIBRARY_IO__
 #define __TMF8801_LIBRARY_IO__
 
+#include <Arduino.h>
 #include <Wire.h>
 #include "SparkFun_TMF8801_Constants.h"
 

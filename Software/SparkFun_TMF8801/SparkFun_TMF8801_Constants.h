@@ -18,7 +18,7 @@
 
 #ifndef __TMF8801_CONSTANTS__
 #define __TMF8801_CONSTANTS__
-
+#include <Arduino.h>
 #include <stdint.h>
 
 // Constants definitions

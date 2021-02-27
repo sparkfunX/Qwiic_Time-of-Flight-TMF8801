@@ -22,7 +22,7 @@ bool TMF8801::begin(byte address, TwoWire& wirePort)
 {
 	// Initialize the selected I2C interface 
 	bool ready = tmf8801_io.begin(address, wirePort);
-
+	
 	// If the interface is not ready or TMF8801 is unreacheable return false
 	if (ready == false)
 	{
@@ -86,7 +86,7 @@ bool TMF8801::cpuReady()
 		if (ready == false)
 		{
 			counter++;
-			delay(10);
+			delay(100);
 		}
 		else
 		{
@@ -127,7 +127,7 @@ bool TMF8801::applicationReady()
 		if (ready == false)
 		{
 			counter++;
-			delay(10);
+			delay(100);
 		}
 		else
 		{
@@ -151,15 +151,17 @@ bool TMF8801::getCalibrationData(byte* calibrationResults)
 
 	// Returns device's calibration data values (14 bytes)
 	lastError = ERROR_NONE;
-	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_FACTORY_CALIBRATION);
 	uint32_t calibrationStart = millis();
 
 	byte value;
 	do
 	{
+		tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_FACTORY_CALIBRATION);
+		delay(10);
 		value = tmf8801_io.readSingleByte(REGISTER_REGISTER_CONTENTS);
 		if (value == CONTENT_CALIBRATION)
 		{
+			delay(10);
 			tmf8801_io.readMultipleBytes(REGISTER_FACTORY_CALIB_0, calibrationResults, CALIBRATION_DATA_LENGTH);
 			return true;
 		}
@@ -195,18 +197,17 @@ byte TMF8801::getHardwareVersion()
 	return tmf8801_io.readSingleByte(REGISTER_REVID);
 }
 
-int TMF8801::getSerialNumber()
+short TMF8801::getSerialNumber()
 {
-	int serial = 0;
+	short serial = 0;
 	byte value[2];
-
+	byte result;
 	// Request serial number to device
-	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_SERIAL);
-	byte result = tmf8801_io.readSingleByte(REGISTER_REGISTER_CONTENTS);
 	do
-	{
-		delay(10);
+	{	tmf8801_io.writeSingleByte(REGISTER_COMMAND, COMMAND_SERIAL);
+		delay(50);
 		result = tmf8801_io.readSingleByte(REGISTER_REGISTER_CONTENTS);
+		delay(10);
 	} while (result != COMMAND_SERIAL);
 
 	// Read two bytes and combine them as a single int
@@ -311,6 +312,8 @@ void TMF8801::enableInterrupt()
 	byte registerValue = tmf8801_io.readSingleByte(REGISTER_INT_ENAB);
 	registerValue |= INTERRUPT_MASK;
 	tmf8801_io.writeSingleByte(REGISTER_INT_ENAB, registerValue);
+	delay(10);
+	doMeasurement();
 }
 
 void TMF8801::disableInterrupt()
