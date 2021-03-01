@@ -17,7 +17,7 @@
   Hardware Connections:
   - Attach the Qwiic Shield to your Arduino/Photon/ESP32 or other
   - Attach a LED anode to GPIO0 through a 1k ohm resistor and it's cathode to ground
-  - Attach a 10k pull-up resistor from GPIO1 pin to 3.3V
+  - Attach a 10k pull-up resistor from GPIO1 pin to 3.3V. Bring GPIO1 low to stop measurement and high (pulled up) to resume.
   - Plug the sensor onto the shield
   - Serial.print it out at 115200 baud to serial monitor.
 */
@@ -60,6 +60,13 @@ void setup()
     Serial.println("System halted.");
     while (true);
   }
+  
+  // GPIO modes allowable values are:
+  // MODE_LOW_OUTPUT = GPIO pin is driven low
+  // MODE_HIGH_OUTPUT = GPIO pin is driven high
+  // MODE_LOW_INPUT = measurement will stop if GPIO pin is low and resume when GPIO pin is high
+  // MODE_HIGH_INPUT = measurement will stop if GPIO pin is high and will resume when GPIO is low
+  // MODE_VCSEL = VCSEL pulse output - refer to the datasheet for supplemental information
   
   // Device will stop to update the measurement value if GPIO1 is pulled low but you will still be able to get the last measured value.
   // It will resume updating distance measurements as soon as GPIO1 is pulled high.
