@@ -15,13 +15,12 @@
   and is reset upon device reset.
 
   Hardware Connections:
-  - Attach the Qwiic Shield to your Arduino/Photon/ESP32 or other
-  - Plug the sensor onto the shield
-  - Serial.print it out at 115200 baud to serial monitor.
+  - Plug the Qwiic device to your Arduino/Photon/ESP32 using a cable
+  - Open a serial monitor at 115200bps
 */
 
 #include <Wire.h>
-#include "SparkFun_TMF8801_Library.h"
+#include "SparkFun_TMF8801_Arduino_Library.h"
 
 TMF8801 tmf8801;
 

@@ -16,7 +16,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "SparkFun_TMF8801_Library.h"
+#include "SparkFun_TMF8801_Arduino_Library.h"
 
 bool TMF8801::begin(byte address, TwoWire& wirePort)
 {
